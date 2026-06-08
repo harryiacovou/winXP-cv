@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
-import { WindowDropDowns, Google } from 'components';
+import { WindowDropDowns } from 'components';
 import dropDownData from './dropDownData';
+import { profile, contact } from '../cvData';
+import fallbackPhoto from 'assets/windowsIcons/user.png';
 import ie from 'assets/windowsIcons/ie-paper.png';
 import printer from 'assets/windowsIcons/17(32x32).png';
 import go from 'assets/windowsIcons/290.png';
@@ -22,24 +24,11 @@ import stop from 'assets/windowsIcons/stop.png';
 import windows from 'assets/windowsIcons/windows.png';
 import dropdown from 'assets/windowsIcons/dropdown.png';
 
+const LINKEDIN_URL = contact.linkedin.url;
+
 function InternetExplorer({ onClose }) {
-  const [state, setState] = useState({
-    route: 'main',
-    query: '',
-  });
-  function onSearch(str) {
-    if (str.length) {
-      setState({
-        route: 'search',
-        query: str,
-      });
-    }
-  }
-  function goMain() {
-    setState({
-      route: 'main',
-      query: '',
-    });
+  function openLinkedIn() {
+    window.open(LINKEDIN_URL, '_blank', 'noopener,noreferrer');
   }
   function onClickOptionItem(item) {
     switch (item) {
@@ -48,7 +37,7 @@ function InternetExplorer({ onClose }) {
         break;
       case 'Home Page':
       case 'Back':
-        goMain();
+        openLinkedIn();
         break;
       default:
     }
@@ -66,12 +55,7 @@ function InternetExplorer({ onClose }) {
         <img className="ie__windows-logo" src={windows} alt="windows" />
       </section>
       <section className="ie__function_bar">
-        <div
-          onClick={goMain}
-          className={`ie__function_bar__button${
-            state.route === 'main' ? '--disable' : ''
-          }`}
-        >
+        <div className="ie__function_bar__button--disable">
           <img className="ie__function_bar__icon" src={back} alt="" />
           <span className="ie__function_bar__text">Back</span>
           <div className="ie__function_bar__arrow" />
@@ -90,7 +74,7 @@ function InternetExplorer({ onClose }) {
             alt=""
           />
         </div>
-        <div className="ie__function_bar__button" onClick={goMain}>
+        <div className="ie__function_bar__button" onClick={openLinkedIn}>
           <img className="ie__function_bar__icon--margin-1" src={home} alt="" />
         </div>
         <div className="ie__function_bar__separate" />
@@ -136,13 +120,7 @@ function InternetExplorer({ onClose }) {
         <div className="ie__address_bar__title">Address</div>
         <div className="ie__address_bar__content">
           <img src={ie} alt="ie" className="ie__address_bar__content__img" />
-          <div className="ie__address_bar__content__text">
-            {`https://www.google.com.tw${
-              state.route === 'search'
-                ? `/search?q=${encodeURIComponent(state.query)}`
-                : ''
-            }`}
-          </div>
+          <div className="ie__address_bar__content__text">{LINKEDIN_URL}</div>
           <img
             src={dropdown}
             alt="dropdown"
@@ -165,12 +143,26 @@ function InternetExplorer({ onClose }) {
       </section>
       <div className="ie__content">
         <div className="ie__content__inner">
-          <Google
-            route={state.route}
-            query={state.query}
-            onSearch={onSearch}
-            goMain={goMain}
-          />
+          <div className="ie__linkedin">
+            <img
+              className="ie__linkedin__photo"
+              src={profile.photo}
+              onError={e => {
+                e.target.onerror = null;
+                e.target.src = fallbackPhoto;
+              }}
+              alt={profile.name}
+            />
+            <h1 className="ie__linkedin__name">{profile.name}</h1>
+            <p className="ie__linkedin__title">{profile.title}</p>
+            <p className="ie__linkedin__text">
+              For my full profile, recommendations and work history, visit my
+              LinkedIn page.
+            </p>
+            <button className="ie__linkedin__button" onClick={openLinkedIn}>
+              Open LinkedIn Profile
+            </button>
+          </div>
         </div>
       </div>
       <footer className="ie__footer">
@@ -400,10 +392,56 @@ const Div = styled.div`
   }
   .ie__content__inner {
     position: relative;
-    min-height: 800px;
-    min-width: 800px;
     width: 100%;
     height: 100%;
+    background-color: #fff;
+  }
+  .ie__linkedin {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 30px;
+  }
+  .ie__linkedin__photo {
+    width: 110px;
+    height: 110px;
+    border-radius: 6px;
+    object-fit: cover;
+    border: 3px solid #0a66c2;
+    margin-bottom: 14px;
+  }
+  .ie__linkedin__name {
+    font-size: 22px;
+    font-weight: 700;
+    color: #222;
+  }
+  .ie__linkedin__title {
+    font-size: 14px;
+    color: #555;
+    margin-top: 2px;
+  }
+  .ie__linkedin__text {
+    font-size: 12px;
+    color: #666;
+    max-width: 360px;
+    line-height: 18px;
+    margin: 14px 0 18px;
+  }
+  .ie__linkedin__button {
+    background: #0a66c2;
+    color: #fff;
+    border: none;
+    border-radius: 18px;
+    padding: 8px 22px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    &:hover {
+      background: #004182;
+    }
   }
   .ie__footer {
     height: 20px;
