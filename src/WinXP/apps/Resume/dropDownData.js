@@ -43,4 +43,5 @@ const Help = [
     text: 'About WordPad',
   },
 ];
-export default { File, Edit, View, Help };
+const dropDownData = { File, Edit, View, Help };
+export default dropDownData;

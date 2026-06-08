@@ -25,4 +25,5 @@ const Help = [
     text: 'About Me',
   },
 ];
-export default { File, Edit, View, Help };
+const dropDownData = { File, Edit, View, Help };
+export default dropDownData;
