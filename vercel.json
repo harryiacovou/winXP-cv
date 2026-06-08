@@ -1,13 +1,8 @@
 {
   "version": 2,
   "name": "winXP",
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@now/static-build",
-      "config": { "distDir": "build" }
-    }
-  ],
+  "buildCommand": "react-scripts build",
+  "outputDirectory": "build",
   "routes": [
     {
       "src": "/static/(.*)",
