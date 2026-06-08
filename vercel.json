@@ -10,6 +10,9 @@
       "dest": "/static/$1"
     },
     { "src": "/favicon.ico", "dest": "/favicon.ico" },
+    { "src": "/background.png", "dest": "/background.png" },
+    { "src": "/photo.webp", "dest": "/photo.webp" },
+    { "src": "/sounds/(.*)", "dest": "/sounds/$1" },
     { "src": "/asset-manifest.json", "dest": "/asset-manifest.json" },
     { "src": "/manifest.json", "dest": "/manifest.json" },
     {
