@@ -5,6 +5,8 @@
   "author": "ShizukuIchi <shizukuichi@gmail.com>",
   "homepage": "/",
   "dependencies": {
+    "@vercel/analytics": "^2.0.1",
+    "eslint-plugin-flowtype": "^8.0.3",
     "lodash.samplesize": "^4.2.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
